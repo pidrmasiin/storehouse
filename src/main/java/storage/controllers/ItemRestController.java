@@ -17,7 +17,7 @@ public class ItemRestController {
     @Autowired
     private ItemRepository itemRepository;
     
-    @CrossOrigin(origins = "/**")
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(method=RequestMethod.GET)
       public List<Item> getBooks() {
         return itemRepository.findAll();

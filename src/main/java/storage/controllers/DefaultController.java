@@ -16,7 +16,7 @@ public class DefaultController {
     @Autowired
     private ItemRepository itemRepository;
 
-    @GetMapping("/")
+    @GetMapping("/noreact")
     public String home(Model model) {
         model.addAttribute("items", this.itemRepository.findAll());
         System.out.println("Haloooo");
@@ -24,7 +24,7 @@ public class DefaultController {
         return "index";
     }
 
-    @PostMapping("/")
+    @PostMapping("/noreact")
     public String post(@RequestParam String name) {
         if (!name.trim().isEmpty() && !name.trim().isEmpty()) {
             Item item = new Item(name);

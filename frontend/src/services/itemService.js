@@ -7,6 +7,18 @@ const getAll = async () => {
     return response.data
   }
 
+const remove = async (id) => {
+    const response = await axios.delete(`${baseUrl}/${id}`)
+    return response.data
+  }
+
+const add = async (item) => {
+    const response = await axios.post(baseUrl, item)
+    return response.data
+  }
+
   export default {
-    getAll
+    getAll,
+    remove,
+    add
   }

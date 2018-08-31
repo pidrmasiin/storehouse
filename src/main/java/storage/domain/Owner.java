@@ -22,8 +22,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor
 @Data
 @Entity
-public class Category extends AbstractPersistable<Long> {
+public class Owner extends AbstractPersistable<Long> {
     private String name;
-    private ArrayList<Long> items;
-    
+    private ArrayList<Long> areas;
 }

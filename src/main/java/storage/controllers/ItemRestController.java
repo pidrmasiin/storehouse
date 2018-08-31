@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import storage.domain.Category;
 import storage.domain.Item;
@@ -37,7 +36,11 @@ public class ItemRestController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Item post(@RequestBody Item item) {
-        return itemRepository.save(item);
+        Item out = itemRepository.save(item);
+         if (item.getCategories() != null) {
+            this.categoryService.postItemWithCategory(out);
+        }
+        return out;
     }
     
     @RequestMapping(method = RequestMethod.DELETE, path="/{id}")

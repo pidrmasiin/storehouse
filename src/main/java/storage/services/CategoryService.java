@@ -41,6 +41,18 @@ public class CategoryService {
     }
     
     @Transactional
+    public void postItemWithCategory(Item item) {
+        for(Long x : item.getCategories()){
+            Category c = this.categoryRepository.getOne(x);
+            if(c.getItems() == null) {
+                c.setItems(new ArrayList<Long>());
+            }
+            c.getItems().add(item.getId());
+            this.categoryRepository.save(c);
+        }
+    }
+    
+    @Transactional
     public void deleteItem(Long itemId) {
         Item i = this.itemRepository.getOne(itemId);
         if(i.getCategories() != null){
@@ -50,5 +62,17 @@ public class CategoryService {
             }
         }
         this.itemRepository.delete(i);
+    }
+    
+    @Transactional
+    public void deleteCategory(Long itemId) {
+        Category c= this.categoryRepository.getOne(itemId);
+        if(c.getItems() != null){
+            for(Long x : c.getItems()){
+                Item i = this.itemRepository.getOne(x);
+                i.getCategories().remove(c.getId());
+            }
+        }
+        this.categoryRepository.delete(c);
     }
 }

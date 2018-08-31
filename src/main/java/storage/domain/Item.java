@@ -7,6 +7,7 @@ package storage.domain;
  */
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -23,4 +24,6 @@ public class Item extends AbstractPersistable<Long> {
 
     private String name;
     private ArrayList<Long> categories; 
+    private Date bestBefore;
+    private Integer amount;
 }

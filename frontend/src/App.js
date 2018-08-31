@@ -1,68 +1,49 @@
 import React, { Component } from 'react';
-import Items from './components/Items'
-import NavBar from './Navigation'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Lottie from 'react-lottie';
-import * as animationData from './lotties/loading.json'
+import NavBar from './components/Navigation';
+import Home from './components/Home';
+import Storage from './components/Storage';
+import { getItems } from './reducers/itemsReducer';
 
 
 class App extends Component {
-  
-  render() {
-    const defaultOptions = {
-      loop: false,
-      animationData: animationData,
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
-      }
-    };
+  componentWillMount = async () => {
+    this.props.getItems()
+  }
 
+  render() {
+    console.log('props', this.props)
     return (
-      <Grid container style={{padding: '1em', background: '#1a001a',  height:'100%', width:'100%', fontFamily: 'Courier New'}}>
-        <Grid item container xs={12}>
-          <NavBar/>
+      <Router>
+        <Grid
+          container
+          style={{
+            background: '#1a001a', minHeight: '97vh', height: '100%', fontFamily: 'Courier New',
+          }}
+        >
+          <Grid item xs={12} style={{ height: '10%', padding: '2em' }}>
+            <NavBar />
+          </Grid>
+          <Grid container item xs={12} style={{ height: '50%', paddingLeft: '5%' }}>
+            <Route exact path="/" render={() => <Home />} />
+            <Route exact path="/varastosi" render={() => <Storage />} />
+          </Grid>
+          <Grid item xs={12} style={{ height: '20%' }} />
         </Grid>
-        <Grid item xs={12} sm={3} >
-          <h1 style={{textAlign: 'center', fontSize: '2em', color: 'white', padding: '0'}}>Kotisi<br/>tavarat</h1>
-          <Lottie 
-              options={defaultOptions}
-              height={'10em'}
-              width={'10em'}
-              />
-        </Grid>
-      <Grid item container xs={12} sm={5} >
-        <Grid item xs={12} sm={2}/>
-        <Grid item xs={12} sm={8} style={{background: 'white'}}>
-        <Items/>
-        </Grid>
-        <Grid item xs={12} sm={2}/>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-      <div style={{color: 'white', padding: '1em'}}>
-            <h1>Mitä omistat?</h1>
-            <p style={{textAlign:'justify'}}>Aina ei muista, mitä kaikkea omistaa. Kaappien
-            perukoilta löytyy kaikenlaista, jonka olemassaolon oli jo ehtinyt
-            unohtaa. 
-            <br/>
-            <br/>
-            Kun seuraavan kerran järjestelet varastojasi, merkitse ylös, mitä omistat ja 
-            missä tavarasi oikein sijaitsevat. Näin voit myöhemmin tarkistaa, 
-            onko sinulla jo tarvitsemasi tuote ja mihin oikein olet sen säilönyt. Näin kohtaat tilanteita,
-            joissa huomaat ostaneensi kolmannen paketin samoja paristoja tai harvoin
-            käyttössä olevaa, mutta toki tarpeellista riisiviinaetikkaa, huomattavasti harvemmin. 
-            <br/>
-            <br/>
-            Sivustolla voit myös pitää kirjaa käytettymiesi kulutushyödykkeiden 
-            menekistä. Lisäksi, jos merkitset palveluun tuotteittesi parasta ennen päiväyksen, sovellus
-            muistuttaa sinua tuotteen vanhenemisesta.
-            </p>
-          </div>
-        </Grid>
-      <Grid item xs={12} style={{padding: '2em'}}/>
-      <Grid item xs={12} style={{background: 'white'}}/>
-    </Grid>
+      </Router>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  items: state.items,
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getItems,
+  },
+)(App);

@@ -31,7 +31,7 @@ class Storage extends React.Component {
         const items = await itemService.getAll();
         console.log('categories', categories)
         this.setState({
-          categories: categories,
+          categories,
           items,
         });
       }
@@ -99,7 +99,7 @@ class Storage extends React.Component {
           <Grid item xs={12} sm={2} />
           <Grid item xs={12} sm={5}>
             <h1 style={{ color: 'white', textAlign: 'center' }}>Varastosi</h1>
-            <br />
+            <LogoLottie size={{ height: '5em', width: '5em' }} />
             <List style={{ background: 'white', textAlign: 'center' }}>
               <ListItem>
                 <FormInput
@@ -114,8 +114,9 @@ class Storage extends React.Component {
                 </ListItem>
               ))}
             </List>
-            <br />
-            <br />
+            <br/>
+            <LogoLottie size={{ height: '5em', width: '5em' }} />
+            <br/>
             <List style={{ background: 'white', textAlign: 'center' }}>
               <ListSubheader style={{ color: '#1a001a' }}>Kategoriat</ListSubheader>
               <ListItem style={{ padding: '1em', paddingLeft: '10%' }}>
@@ -142,8 +143,7 @@ class Storage extends React.Component {
           </Grid>
           <Grid item container sm={4}>
             <Grid item xs={2} />
-            <Grid item xs={8} style={{ color: 'white' }}>
-              <LogoLottie size={{ height: '10em', width: '10em' }} />
+            <Grid item xs={8} style={{ color: 'white', paddingTop: '15%' }}>
               <h2>Mitä varastostasi löytyy?</h2>
               <p>
               Etsi tavaroita nimellä. Voi myös lisätä uuden tuotteen johonkin

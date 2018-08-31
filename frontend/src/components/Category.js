@@ -58,6 +58,23 @@ class SimpleModal extends React.Component {
         console.log('år', this.props)
       }
 
+      forceUpdate = async (upperName) => {
+        const items = await itemService.getAll();
+        const item = items.find(x => x.name === upperName)
+        console.log('item', item)
+        const updateCategory = this.state.category
+        if (!updateCategory.items) {
+          updateCategory.items = []
+        }
+
+        updateCategory.items.push(item.id)
+        console.log('item', updateCategory)
+        this.setState({
+          category: updateCategory,
+          items,
+        })
+      }
+
       deleteCategory = category => () => {
         const ok = window.confirm(`Poistetaanko ${category.name} listalta`);
         if (!ok) {
@@ -76,7 +93,7 @@ class SimpleModal extends React.Component {
         const upperName = this.state.item.charAt(0).toUpperCase()
     + this.state.item.slice(1);
         await itemService.add({ name: upperName, categories: [this.state.category.id] });
-        window.location.assign('/varastosi')
+        this.forceUpdate(upperName)
       } catch (error) {
         console.log('jotain meni vikaan');
       }

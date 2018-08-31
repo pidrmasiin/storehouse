@@ -9,7 +9,8 @@ module.exports = {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "semi": 0,
         "react/destructuring-assignment": { "ignoreClassFields": true },
-        "react/prop-types":0
+        "react/prop-types":0,
+        "react/no-access-state-in-setstate": 0,
     },
    
 };
